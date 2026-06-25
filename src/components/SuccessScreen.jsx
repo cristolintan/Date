@@ -1,13 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import confetti from 'canvas-confetti'
-import Adventures from './Adventures.jsx'
 
 const COLORS = ['#ff8fb1', '#ffd1e0', '#c8a2ff', '#fff0a3', '#ffffff']
 
-export default function SuccessScreen({ config }) {
-  const [showAdventures, setShowAdventures] = useState(false)
-
+export default function SuccessScreen({ config, onNext }) {
   // A short, celebratory confetti sequence on mount.
   useEffect(() => {
     const fire = (opts) => confetti({ colors: COLORS, disableForReducedMotion: true, ...opts })
@@ -64,7 +61,7 @@ export default function SuccessScreen({ config }) {
         {config.successTitle} {config.successEmoji}
       </motion.h1>
 
-      {config.showFutureButton && !showAdventures && (
+      {config.showFutureButton && (
         <motion.button
           className="btn yes future-btn"
           initial={{ opacity: 0, y: 12 }}
@@ -72,13 +69,11 @@ export default function SuccessScreen({ config }) {
           transition={{ delay: 0.6 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => setShowAdventures(true)}
+          onClick={onNext}
         >
           {config.futureButtonLabel}
         </motion.button>
       )}
-
-      {showAdventures && <Adventures items={config.adventures} />}
     </motion.section>
   )
 }

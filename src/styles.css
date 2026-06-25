@@ -161,35 +161,131 @@ body {
   margin-top: 6px;
 }
 
-/* ── Future adventures ──────────────────────────── */
-.adventures {
+/* ── Selectable steps (adventures / availability) ── */
+.step-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(22px, 5.5vw, 32px);
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.step-hint {
+  font-size: 14px;
+  opacity: 0.72;
+  margin-bottom: 22px;
+}
+.select-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin-top: 24px;
+  gap: 12px;
+  margin-bottom: 26px;
 }
 @media (min-width: 480px) {
-  .adventures {
+  .select-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-.adventure {
+.select-card {
+  position: relative;
   background: rgba(255, 255, 255, 0.55);
-  border: 1px solid var(--glass-brd);
+  border: 2px solid transparent;
   border-radius: 20px;
   padding: 18px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--ink);
   box-shadow: 0 8px 20px rgba(214, 93, 140, 0.18);
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  will-change: transform;
 }
-.adventure-emoji {
+.select-card.selected {
+  border-color: var(--rose-deep);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 10px 26px rgba(255, 77, 133, 0.35);
+}
+.select-check {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 16px;
+  line-height: 1;
+}
+.select-emoji {
   font-size: 30px;
 }
-.adventure-title {
+.select-title {
   font-size: 13px;
   font-weight: 600;
+}
+
+/* Step navigation buttons */
+.step-next {
+  width: 100%;
+}
+.step-next:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.step-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.step-actions .step-next {
+  flex: 1;
+}
+.btn.ghost {
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--ink);
+  box-shadow: 0 6px 16px rgba(150, 120, 200, 0.22);
+}
+
+/* ── Celebration (final) screen ─────────────────── */
+.celebration-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(24px, 6vw, 36px);
+  margin-bottom: 8px;
+}
+.celebration-message {
+  font-size: 15px;
+  opacity: 0.8;
+  margin-bottom: 22px;
+}
+.plan-block {
+  text-align: left;
+  margin-bottom: 18px;
+}
+.plan-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+.plan-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.plan-chip {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--glass-brd);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(214, 93, 140, 0.16);
+}
+.celebration-restart {
+  margin-top: 10px;
 }
 
 /* ── Floating hearts background ─────────────────── */
