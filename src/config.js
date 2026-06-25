@@ -15,8 +15,9 @@ import catSad from './assets/cats/sad-kitten.jpeg'
 import catSobbing from './assets/cats/sobbing-cat.jpg'
 import catCrying from './assets/cats/crying-cat.webp'
 
-// Dancing-cat gif shown on the success/celebration screen after YES.
-import dancingCat from './assets/cats/dancing-cat.gif'
+// Dancing-cat shown on the success/celebration screen after YES.
+// Animated WebP — same dance, ~71% smaller than the original gif.
+import dancingCat from './assets/cats/dancing-cat.webp'
 
 export const config = {
   // ── The Big Question ──────────────────────────────
