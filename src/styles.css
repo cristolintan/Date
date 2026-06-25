@@ -210,6 +210,15 @@ body {
   line-height: 1.32;
   margin-bottom: 26px;
 }
+.dancing-cat {
+  display: block;
+  width: clamp(150px, 42vw, 190px);
+  height: clamp(150px, 42vw, 190px);
+  object-fit: contain;
+  margin: 2px auto 10px;
+  /* The gif has a white background — multiply blends it into the card. */
+  mix-blend-mode: multiply;
+}
 .future-btn {
   margin-top: 6px;
 }
