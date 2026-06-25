@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
-// Word-by-word reveal for the question.
+// Word-by-word reveal for the headline.
 const sentence = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.07, delayChildren: 0.15 } },
+  show: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+  exit: { opacity: 0, y: -12, transition: { duration: 0.2 } },
 }
 const word = {
   hidden: { opacity: 0, y: 22, filter: 'blur(8px)' },
@@ -43,12 +44,12 @@ export default function BigQuestion({ config, onYes }) {
     setDodges((d) => d + 1)
   }
 
-  const noText =
-    dodges === 0
-      ? `${config.noLabel} ${config.noEmoji}`
-      : config.noReactions[(dodges - 1) % config.noReactions.length]
-
-  const words = config.question.split(' ')
+  // The big headline: the question first, then the playful reactions as NO is dodged.
+  const isQuestion = dodges === 0
+  const headline = isQuestion
+    ? config.question
+    : config.noReactions[(dodges - 1) % config.noReactions.length]
+  const words = headline.split(' ')
 
   return (
     <motion.section
@@ -76,21 +77,34 @@ export default function BigQuestion({ config, onYes }) {
         </motion.div>
       )}
 
-      <motion.h1 className="question" variants={sentence} initial="hidden" animate="show">
-        {words.map((w, i) => (
-          <motion.span key={i} className="q-word" variants={word}>
-            {w}&nbsp;
-          </motion.span>
-        ))}
-        <motion.span
-          className="q-heart"
-          variants={word}
-          animate={{ scale: [1, 1.18, 1] }}
-          transition={{ repeat: Infinity, duration: 1.3, ease: 'easeInOut' }}
-        >
-          {config.questionEmoji}
-        </motion.span>
-      </motion.h1>
+      <div className="question-wrap">
+        <AnimatePresence mode="wait">
+          <motion.h1
+            key={headline}
+            className="question"
+            variants={sentence}
+            initial="hidden"
+            animate="show"
+            exit="exit"
+          >
+            {words.map((w, i) => (
+              <motion.span key={i} className="q-word" variants={word}>
+                {w}&nbsp;
+              </motion.span>
+            ))}
+            {isQuestion && (
+              <motion.span
+                className="q-heart"
+                variants={word}
+                animate={{ scale: [1, 1.18, 1] }}
+                transition={{ repeat: Infinity, duration: 1.3, ease: 'easeInOut' }}
+              >
+                {config.questionEmoji}
+              </motion.span>
+            )}
+          </motion.h1>
+        </AnimatePresence>
+      </div>
 
       <div className="buttons">
         <motion.button
@@ -116,16 +130,12 @@ export default function BigQuestion({ config, onYes }) {
           }}
           transition={{ type: 'spring', stiffness: 220, damping: 16 }}
         >
-          {noText}
+          {config.noLabel} {config.noEmoji}
         </motion.button>
       </div>
 
       {dodges > 2 && (
-        <motion.p
-          className="hint"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
+        <motion.p className="hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           psst… the YES button is right there 👉
         </motion.p>
       )}
