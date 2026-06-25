@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#ffd1dc" />
+  <title>A little question for you 💕</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(160deg, #ffe3ec 0%, #ffd1dc 45%, #ffc2d4 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: env(safe-area-inset-top) 24px env(safe-area-inset-bottom);
+      position: relative;
+      touch-action: manipulation;
+    }
+
+    /* floating hearts background */
+    .heart-bg {
+      position: fixed;
+      bottom: -40px;
+      font-size: 22px;
+      opacity: 0;
+      pointer-events: none;
+      animation: floatUp linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0) scale(0.8); opacity: 0; }
+      10%  { opacity: 0.7; }
+      90%  { opacity: 0.7; }
+      100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .bear {
+      font-size: 78px;
+      animation: bob 2.2s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50%      { transform: translateY(-10px) rotate(3deg); }
+    }
+
+    h1 {
+      font-size: 30px;
+      line-height: 1.3;
+      color: #c2185b;
+      margin: 18px 0 8px;
+      font-weight: 800;
+    }
+
+    p.sub {
+      font-size: 17px;
+      color: #e0568a;
+      margin-bottom: 36px;
+      font-weight: 500;
+    }
+
+    .buttons {
+      position: relative;
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      align-items: center;
+      min-height: 70px;
+    }
+
+    button {
+      border: none;
+      border-radius: 40px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.15s ease;
+    }
+
+    .yes {
+      background: linear-gradient(135deg, #ff5e8a, #ff2d6f);
+      color: #fff;
+      font-size: 22px;
+      padding: 18px 46px;
+      box-shadow: 0 10px 22px rgba(255, 45, 111, 0.45);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+
+    .yes:active { transform: scale(0.94); }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 10px 22px rgba(255, 45, 111, 0.45); }
+      50%      { box-shadow: 0 10px 30px rgba(255, 45, 111, 0.7); }
+    }
+
+    .no {
+      background: #fff;
+      color: #e0568a;
+      font-size: 18px;
+      padding: 15px 32px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    /* when the no button starts running, take it out of flow so it can roam */
+    .no.runaway {
+      position: fixed;
+      z-index: 5;
+      margin: 0;
+    }
+
+    /* success screen */
+    #success {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      background: linear-gradient(160deg, #ffe3ec 0%, #ffc2d4 100%);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    #success .big {
+      font-size: 92px;
+      animation: bob 1.8s ease-in-out infinite;
+    }
+
+    #success h2 {
+      font-size: 34px;
+      color: #c2185b;
+      margin: 20px 0 10px;
+      font-weight: 800;
+    }
+
+    #success p {
+      font-size: 19px;
+      color: #e0568a;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="bear">🧸</span>
+    <h1>Will you go out<br>with me? 🥺</h1>
+    <p class="sub">Pretty please... with a cherry on top 🍒</p>
+
+    <div class="buttons">
+      <button class="yes" id="yesBtn">Yes! 💖</button>
+      <button class="no" id="noBtn">No</button>
+    </div>
+  </div>
+
+  <div id="success">
+    <span class="big">🥰</span>
+    <h2>Yay!! 🎉</h2>
+    <p>I can't wait for our date 💕<br>You just made me the happiest!</p>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const success = document.getElementById('success');
+
+    const teases = [
+      "No", "Are you sure?", "Really sure?", "Think again 🥺",
+      "Pretty please?", "Don't do this 😭", "Give me a chance!",
+      "You're breaking my heart 💔", "Last chance...", "I'll wait forever 🧸"
+    ];
+    let teaseIndex = 0;
+
+    function moveNo() {
+      // promote to fixed positioning on first dodge so it can roam freely
+      if (!noBtn.classList.contains('runaway')) {
+        const rect = noBtn.getBoundingClientRect();
+        noBtn.classList.add('runaway');
+        noBtn.style.left = rect.left + 'px';
+        noBtn.style.top = rect.top + 'px';
+      }
+
+      const btnW = noBtn.offsetWidth;
+      const btnH = noBtn.offsetHeight;
+      const pad = 12;
+      const maxX = window.innerWidth - btnW - pad;
+      const maxY = window.innerHeight - btnH - pad;
+
+      const newX = Math.max(pad, Math.random() * maxX);
+      const newY = Math.max(pad, Math.random() * maxY);
+
+      noBtn.style.left = newX + 'px';
+      noBtn.style.top = newY + 'px';
+
+      // cycle a teasing label + grow the Yes button to nudge them
+      teaseIndex = (teaseIndex + 1) % teases.length;
+      noBtn.textContent = teases[teaseIndex];
+
+      const scale = Math.min(1 + teaseIndex * 0.08, 1.6);
+      yesBtn.style.transform = 'scale(' + scale + ')';
+    }
+
+    // Dodge on any attempt to interact — covers iPhone taps and hovers
+    ['mouseenter', 'mousedown', 'touchstart', 'pointerdown', 'pointerenter', 'click']
+      .forEach(evt => {
+        noBtn.addEventListener(evt, function (e) {
+          e.preventDefault();
+          moveNo();
+        }, { passive: false });
+      });
+
+    // Yes! → celebrate
+    function sayYes() {
+      success.style.display = 'flex';
+      burstHearts();
+    }
+    yesBtn.addEventListener('click', sayYes);
+
+    // Heart confetti burst
+    function burstHearts() {
+      for (let i = 0; i < 30; i++) {
+        const h = document.createElement('div');
+        h.className = 'heart-bg';
+        h.textContent = ['💖', '💕', '❤️', '💘', '🌸'][Math.floor(Math.random() * 5)];
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.fontSize = (16 + Math.random() * 26) + 'px';
+        h.style.animationDuration = (3 + Math.random() * 4) + 's';
+        h.style.animationDelay = (Math.random() * 1.5) + 's';
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 9000);
+      }
+    }
+
+    // Gentle ambient hearts on load
+    (function ambient() {
+      const h = document.createElement('div');
+      h.className = 'heart-bg';
+      h.textContent = ['💕', '🌸', '💗'][Math.floor(Math.random() * 3)];
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.animationDuration = (5 + Math.random() * 5) + 's';
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 11000);
+      setTimeout(ambient, 1400);
+    })();
+  </script>
+</body>
+</html>
