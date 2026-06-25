@@ -1,20 +1,22 @@
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-// A random internet cat with the playful line captioned on it (via cataas.com).
-// Falls back to the plain text line if the image can't load.
-function CatMeme({ config, text, bust }) {
+// A bundled cat-meme photo with the playful line overlaid as the caption.
+// Falls back to plain text if the image somehow can't load.
+function CatMeme({ img, text }) {
   const [failed, setFailed] = useState(false)
-  if (failed) return <span className="cat-fallback">{text}</span>
-  const src = `${config.catMemeBase}${encodeURIComponent(text)}?fontSize=52&fontColor=%23ffffff&_=${bust}`
+  if (failed || !img) return <span className="cat-fallback">{text}</span>
   return (
-    <img
-      className="cat-meme-img"
-      src={src}
-      alt={text}
-      onError={() => setFailed(true)}
-      draggable="false"
-    />
+    <figure className="cat-fig">
+      <img
+        className="cat-meme-img"
+        src={img}
+        alt={text}
+        onError={() => setFailed(true)}
+        draggable="false"
+      />
+      <figcaption className="cat-cap">{text}</figcaption>
+    </figure>
   )
 }
 
@@ -126,7 +128,10 @@ export default function BigQuestion({ config, onYes }) {
               exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
               transition={{ type: 'spring', stiffness: 170, damping: 16 }}
             >
-              <CatMeme config={config} text={reaction} bust={dodges} />
+              <CatMeme
+                img={config.catImages[(dodges - 1) % config.catImages.length]}
+                text={reaction}
+              />
             </motion.div>
           ) : (
             <motion.h1

@@ -6,6 +6,15 @@
 // change this import to point at your own file. Set `photo: null` below to hide.
 import photo from './assets/photo.jpg'
 
+// Cat-meme photos shown as the playful "NO" reactions (cycled in order).
+// Add/remove imports here to change them — they're bundled & served from your
+// own site, so they load fast (no external API).
+import catSmiley from './assets/cats/smiley-cat.jpg'
+import catReaching from './assets/cats/reaching-cat.jpeg'
+import catSad from './assets/cats/sad-kitten.jpeg'
+import catSobbing from './assets/cats/sobbing-cat.jpg'
+import catCrying from './assets/cats/crying-cat.webp'
+
 export const config = {
   // ── The Big Question ──────────────────────────────
   question: 'Hi Babe! Would you like to go on a date with me?',
@@ -30,11 +39,11 @@ export const config = {
     'Last chance!',
   ],
 
-  // Show the playful lines as CAT MEMES (random internet cat + your caption,
-  // via cataas.com) instead of plain text. If a cat can't load, it gracefully
-  // falls back to the text line. Set to false for text-only.
+  // Show the playful lines as CAT MEMES (your bundled photos, cycled) instead
+  // of plain text. Set to false for text-only. The line is overlaid on the
+  // photo as the caption.
   useCatMemes: true,
-  catMemeBase: 'https://cataas.com/cat/says/',
+  catImages: [catSmiley, catReaching, catSad, catSobbing, catCrying],
 
   // ── Success Screen ────────────────────────────────
   successTitle: "Yay! I can't wait to spend time with you",
