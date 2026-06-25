@@ -1,5 +1,11 @@
 // 💡 Everything you'd want to personalize lives here.
 // Change the words, emojis, and photo — no other file needed.
+
+// Your photo is bundled by Vite (so its URL stays correct no matter where the
+// site is hosted). To use a different photo, replace src/assets/photo.jpg, or
+// change this import to point at your own file. Set `photo: null` below to hide.
+import photo from './assets/photo.jpg'
+
 export const config = {
   // ── The Big Question ──────────────────────────────
   question: 'Hi Babe! Would you like to go on a date with me?',
@@ -10,9 +16,8 @@ export const config = {
   noLabel: 'NO',
   noEmoji: '🙈',
 
-  // Your photo: drop a file in /public and point to it here.
-  // Set to null to hide the photo entirely.
-  photo: '/photo.jpg',
+  // The imported photo above. Set to null to hide the photo entirely.
+  photo,
 
   // Playful messages the NO button cycles through as it keeps dodging.
   noReactions: [
