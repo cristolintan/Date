@@ -1,0 +1,22 @@
+{
+  "name": "date-proposal",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A cute, animated \"Will you go on a date with me?\" page.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 3100 --host"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.9.3",
+    "framer-motion": "^11.11.17",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
+  }
+}
