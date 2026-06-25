@@ -1,6 +1,23 @@
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
+// A random internet cat with the playful line captioned on it (via cataas.com).
+// Falls back to the plain text line if the image can't load.
+function CatMeme({ config, text, bust }) {
+  const [failed, setFailed] = useState(false)
+  if (failed) return <span className="cat-fallback">{text}</span>
+  const src = `${config.catMemeBase}${encodeURIComponent(text)}?fontSize=52&fontColor=%23ffffff&_=${bust}`
+  return (
+    <img
+      className="cat-meme-img"
+      src={src}
+      alt={text}
+      onError={() => setFailed(true)}
+      draggable="false"
+    />
+  )
+}
+
 // Word-by-word reveal for the headline.
 const sentence = {
   hidden: { opacity: 0 },
@@ -46,10 +63,8 @@ export default function BigQuestion({ config, onYes }) {
 
   // The big headline: the question first, then the playful reactions as NO is dodged.
   const isQuestion = dodges === 0
-  const headline = isQuestion
-    ? config.question
-    : config.noReactions[(dodges - 1) % config.noReactions.length]
-  const words = headline.split(' ')
+  const reaction = config.noReactions[(dodges - 1) % config.noReactions.length]
+  const words = config.question.split(' ')
 
   return (
     <motion.section
@@ -79,20 +94,20 @@ export default function BigQuestion({ config, onYes }) {
 
       <div className="question-wrap">
         <AnimatePresence mode="wait">
-          <motion.h1
-            key={headline}
-            className="question"
-            variants={sentence}
-            initial="hidden"
-            animate="show"
-            exit="exit"
-          >
-            {words.map((w, i) => (
-              <motion.span key={i} className="q-word" variants={word}>
-                {w}&nbsp;
-              </motion.span>
-            ))}
-            {isQuestion && (
+          {isQuestion ? (
+            <motion.h1
+              key="question"
+              className="question"
+              variants={sentence}
+              initial="hidden"
+              animate="show"
+              exit="exit"
+            >
+              {words.map((w, i) => (
+                <motion.span key={i} className="q-word" variants={word}>
+                  {w}&nbsp;
+                </motion.span>
+              ))}
               <motion.span
                 className="q-heart"
                 variants={word}
@@ -101,8 +116,34 @@ export default function BigQuestion({ config, onYes }) {
               >
                 {config.questionEmoji}
               </motion.span>
-            )}
-          </motion.h1>
+            </motion.h1>
+          ) : config.useCatMemes ? (
+            <motion.div
+              key={`cat-${dodges}`}
+              className="cat-meme"
+              initial={{ opacity: 0, scale: 0.85, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+              transition={{ type: 'spring', stiffness: 170, damping: 16 }}
+            >
+              <CatMeme config={config} text={reaction} bust={dodges} />
+            </motion.div>
+          ) : (
+            <motion.h1
+              key={`txt-${dodges}`}
+              className="question"
+              variants={sentence}
+              initial="hidden"
+              animate="show"
+              exit="exit"
+            >
+              {reaction.split(' ').map((w, i) => (
+                <motion.span key={i} className="q-word" variants={word}>
+                  {w}&nbsp;
+                </motion.span>
+              ))}
+            </motion.h1>
+          )}
         </AnimatePresence>
       </div>
 
