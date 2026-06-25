@@ -12,7 +12,14 @@ const word = {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: { type: 'spring', stiffness: 130, damping: 14 },
+    // Spring for y/opacity (nice bounce), but a tween for filter — a spring
+    // overshoots blur(0) into invalid negative values and spams the console.
+    transition: {
+      type: 'spring',
+      stiffness: 130,
+      damping: 14,
+      filter: { type: 'tween', duration: 0.45, ease: 'easeOut' },
+    },
   },
 }
 

@@ -48,11 +48,15 @@ folder.
 question, button labels, the cheeky NO messages, the success message, and the
 list of future adventures. Nothing else needs touching.
 
-**2. Your photo** — drop an image in the [`public/`](public/) folder and point
-`photo` at it in `src/config.js`:
+**2. Your photo** — replace [`src/assets/photo.jpg`](src/assets/photo.jpg) with
+your image (keep the name), or point the import at a different file in
+`src/config.js`. The photo is bundled by Vite so its URL stays correct wherever
+the site is hosted:
 
 ```js
-photo: '/photo.jpg',   // or '/us.png' — set to null to hide the photo
+import photo from './assets/photo.jpg' // ← your image
+// ...
+photo,                                  // set to `photo: null` to hide it
 ```
 
 **3. Colors** — tweak the CSS variables at the top of
@@ -65,11 +69,11 @@ photo: '/photo.jpg',   // or '/us.png' — set to null to hide the photo
 ```
 .
 ├── index.html              # app shell + fonts
-├── vite.config.js          # dev/preview on port 3100
+├── vite.config.js          # dev/preview on port 3100, base:'./' for subpath hosting
 ├── public/
-│   ├── photo.jpg           # your photo
 │   └── heart.svg           # favicon
 └── src/
+    ├── assets/photo.jpg    # your photo (bundled)
     ├── main.jsx            # React entry
     ├── App.jsx             # stage switch: question ↔ success
     ├── config.js           # 👈 customize everything here
