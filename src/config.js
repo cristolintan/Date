@@ -2,7 +2,7 @@
 // Change the words, emojis, and photo — no other file needed.
 export const config = {
   // ── The Big Question ──────────────────────────────
-  question: 'Would you like to go on a date with me?',
+  question: 'Hi Babe! Would you like to go on a date with me?',
   questionEmoji: '❤️',
 
   yesLabel: 'YES',
