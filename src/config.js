@@ -37,7 +37,9 @@ export const config = {
   showFutureButton: true,
   futureButtonLabel: 'See Our Future Adventures',
 
-  // Shown after tapping the "future adventures" button.
+  // ── Adventures (now a selectable step) ────────────
+  adventuresTitle: 'Which adventures sound fun?',
+  adventuresHint: 'Pick as many as you like ✨',
   adventures: [
     { emoji: '☕', title: 'Cozy Coffee Dates' },
     { emoji: '🌅', title: 'Sunset Walks' },
@@ -46,4 +48,30 @@ export const config = {
     { emoji: '🎡', title: 'Spontaneous Trips' },
     { emoji: '⭐', title: 'Stargazing' },
   ],
+  adventuresNextLabel: 'Next 💌',
+
+  // ── Availability step ─────────────────────────────
+  availabilityTitle: 'When are you free?',
+  availabilityHint: 'Tap whatever works — we’ll figure out the rest 💕',
+  availabilityOptions: [
+    { emoji: '🌆', title: 'Friday Evening' },
+    { emoji: '🥐', title: 'Saturday Brunch' },
+    { emoji: '🌃', title: 'Saturday Night' },
+    { emoji: '☀️', title: 'Sunday Afternoon' },
+    { emoji: '✨', title: 'Surprise Me!' },
+  ],
+  availabilityBackLabel: '← Back',
+  availabilityConfirmLabel: "Lock it in! 🔒",
+
+  // ── Celebration (final) screen ────────────────────
+  celebrationTitle: "It's a date! 🎉",
+  celebrationMessage: 'Our plan is officially set. Counting down the minutes 💗',
+  celebrationAdventuresLabel: "Things we'll do",
+  celebrationWhenLabel: "When we're free",
+  celebrationRestartLabel: 'Plan again 🔁',
+
+  // ── Social share preview (Open Graph) ─────────────
+  // Used by the meta tags in index.html. Update siteUrl if you rename the repo
+  // or use a custom domain.
+  siteUrl: 'https://cristolintan.github.io/Date/',
 }
