@@ -52,6 +52,18 @@ export default function SuccessScreen({ config, onNext }) {
         </motion.span>
       </motion.div>
 
+      {config.celebrationGif && (
+        <motion.img
+          className="dancing-cat"
+          src={config.celebrationGif}
+          alt="dancing cat celebrating"
+          draggable="false"
+          initial={{ scale: 0, rotate: -8 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ delay: 0.2, type: 'spring', stiffness: 150, damping: 12 }}
+        />
+      )}
+
       <motion.h1
         className="success-title"
         initial={{ opacity: 0, y: 16 }}

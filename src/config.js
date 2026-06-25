@@ -15,6 +15,9 @@ import catSad from './assets/cats/sad-kitten.jpeg'
 import catSobbing from './assets/cats/sobbing-cat.jpg'
 import catCrying from './assets/cats/crying-cat.webp'
 
+// Dancing-cat gif shown on the success/celebration screen after YES.
+import dancingCat from './assets/cats/dancing-cat.gif'
+
 export const config = {
   // ── The Big Question ──────────────────────────────
   question: 'Hi Babe! Would you like to go on a date with me?',
@@ -48,6 +51,9 @@ export const config = {
   // ── Success Screen ────────────────────────────────
   successTitle: "Yay! I can't wait to spend time with you",
   successEmoji: '❤️',
+
+  // Dancing-cat gif celebrated on the success screen. Set to null to hide.
+  celebrationGif: dancingCat,
 
   showFutureButton: true,
   futureButtonLabel: 'See Our Future Adventures',
