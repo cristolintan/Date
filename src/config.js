@@ -19,16 +19,22 @@ export const config = {
   // The imported photo above. Set to null to hide the photo entirely.
   photo,
 
-  // Playful messages the NO button cycles through as it keeps dodging.
+  // Playful messages shown in the big headline as the NO button keeps dodging.
   noReactions: [
-    'Are you sure? 🥺',
-    'Really sure? 😳',
-    'Think again! 💭',
-    'Pretty please? 🌸',
-    "Don't be shy 😚",
-    'My heart… 💔',
-    'Last chance! ✨',
+    'Are you sure?',
+    'Really sure?',
+    'Think again!',
+    'Pretty please?',
+    "Don't be shy",
+    'My heart…',
+    'Last chance!',
   ],
+
+  // Show the playful lines as CAT MEMES (random internet cat + your caption,
+  // via cataas.com) instead of plain text. If a cat can't load, it gracefully
+  // falls back to the text line. Set to false for text-only.
+  useCatMemes: true,
+  catMemeBase: 'https://cataas.com/cat/says/',
 
   // ── Success Screen ────────────────────────────────
   successTitle: "Yay! I can't wait to spend time with you",

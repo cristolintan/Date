@@ -93,6 +93,29 @@ body {
   min-height: 3.4em;
   margin-bottom: 30px;
 }
+
+/* Cat-meme reactions */
+.cat-meme {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.cat-meme-img {
+  width: 100%;
+  max-width: 320px;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 22px;
+  border: 4px solid #fff;
+  box-shadow: 0 14px 32px rgba(214, 93, 140, 0.32);
+  background: rgba(255, 255, 255, 0.5);
+}
+.cat-fallback {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(26px, 6.5vw, 40px);
+  color: var(--ink);
+}
 .question {
   font-family: 'Playfair Display', Georgia, serif;
   font-weight: 600;
