@@ -60,6 +60,17 @@
       max-width: 420px;
     }
 
+    .photo {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid #fff;
+      box-shadow: 0 8px 20px rgba(255, 45, 111, 0.35);
+      margin-bottom: 14px;
+      animation: bob 2.6s ease-in-out infinite;
+    }
+
     .bear {
       font-size: 78px;
       animation: bob 2.2s ease-in-out infinite;
@@ -173,8 +184,9 @@
 </head>
 <body>
   <div class="card">
+    <img class="photo" src="photo.jpg" alt="us 💕" onerror="this.style.display='none'" />
     <span class="bear">🧸</span>
-    <h1>Aynne, will you go out<br>with me? 🥺</h1>
+    <h1>Hi babe, will you go out<br>with me? 🥺</h1>
     <p class="sub">Pretty please... with a cherry on top 🍒</p>
 
     <div class="buttons">
@@ -185,7 +197,7 @@
 
   <div id="success">
     <span class="big">🥰</span>
-    <h2>Yay, Aynne!! 🎉</h2>
+    <h2>Yay, babe!! 🎉</h2>
     <p>I can't wait for our date 💕<br>You just made me the happiest!</p>
   </div>
 
